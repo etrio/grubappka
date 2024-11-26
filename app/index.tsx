@@ -1,7 +1,8 @@
 import ActionButton from "@/components/ActionButton";
+import { User } from "@/types/User";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Picker, PickerIOS } from "@react-native-picker/picker";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 import { useState } from "react";
 import {
   Keyboard,
@@ -14,13 +15,26 @@ import {
 } from "react-native";
 
 export default function WelcomeScreen() {
-  const [selectedActivity, setSelectedActivity] = useState<number | null>(null);
+  const [selectedActivity, setSelectedActivity] = useState<string | null>(null);
   const [selectedGender, setSelectedGender] = useState<string | null>(null);
+  const [name, setName] = useState<string>();
+  const [height, setHeight] = useState<string>();
+  const [weight, setWeight] = useState<string>();
+  const [age, setAge] = useState<string>();
 
+  const user: User = {
+    weight: weight!,
+    name: name!,
+    age: age!,
+    height: height!,
+    gender: selectedGender!,
+    activity: selectedActivity!,
+  };
+  
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView className="flex-1 bg-[#0c0c0c]">
-        <Text className="text-center text-5xl mt-6 dark:text-white font-bold">
+        <Text className="text-center text-5xl mt-5 dark:text-white font-bold">
           Witaj grubasku
         </Text>
         <Text className="dark:text-white text-2xl text-center mt-2 font-semibold">
@@ -29,17 +43,26 @@ export default function WelcomeScreen() {
         <View className="mt-10 gap-y-6 flex-col">
           <TextInput
             placeholder="Imie"
-            className="border-2 mx-5 p-3 border-gray-500 rounded-md dark:text-white"
+            onChangeText={(text) => setName(text)}
+            className="border-2 mx-5 p-3 border-indigo-900 rounded-md dark:text-white"
+          />
+          <TextInput
+            placeholder="Wiek"
+            inputMode="numeric"
+            onChangeText={(text) => setAge(text)}
+            className="border-2 mx-5 p-3 border-indigo-900 rounded-md dark:text-white"
           />
           <TextInput
             placeholder="Wzrost"
             inputMode="numeric"
-            className="border-2 mx-5 p-3 border-gray-500 rounded-md dark:text-white"
+            onChangeText={(text) => setHeight(text)}
+            className="border-2 mx-5 p-3 border-indigo-900 rounded-md dark:text-white"
           />
           <TextInput
             placeholder="Waga"
             inputMode="numeric"
-            className="border-2 mx-5 p-3 border-gray-500 rounded-md dark:text-white"
+            onChangeText={(text) => setWeight(text)}
+            className="border-2 mx-5 p-3 border-indigo-900 rounded-md dark:text-white"
           />
         </View>
         <Text className="dark:text-white text-center text-2xl font-semibold mt-5 text-wrap">
@@ -57,16 +80,16 @@ export default function WelcomeScreen() {
             onPress={() => setSelectedGender("K")}
           />
         </View>
-        <Text className="dark:text-white text-center text-2xl font-semibold mt-10 text-wrap">
+        <Text className="dark:text-white text-center text-2xl font-semibold mt-5 text-wrap">
           Poziom aktywności w tygodniu
         </Text>
-        <View className="flex-row items-center justify-center gap-x-7 mt-10">
+        <View className="flex-row items-center justify-center gap-x-7 mt-5">
           <ActionButton
             text="0-2"
             icon={
               <MaterialCommunityIcons
                 name={
-                  selectedActivity === 1
+                  selectedActivity === "low"
                     ? "lightning-bolt"
                     : "lightning-bolt-outline"
                 }
@@ -74,15 +97,15 @@ export default function WelcomeScreen() {
                 color="white"
               />
             }
-            isSelected={selectedActivity === 1}
-            onPress={() => setSelectedActivity(1)}
+            isSelected={selectedActivity === "low"}
+            onPress={() => setSelectedActivity("low")}
           />
           <ActionButton
             text="3-4"
             icon={
               <MaterialCommunityIcons
                 name={
-                  selectedActivity === 2
+                  selectedActivity === "medium"
                     ? "lightning-bolt"
                     : "lightning-bolt-outline"
                 }
@@ -90,15 +113,15 @@ export default function WelcomeScreen() {
                 color="white"
               />
             }
-            isSelected={selectedActivity === 2}
-            onPress={() => setSelectedActivity(2)}
+            isSelected={selectedActivity === "medium"}
+            onPress={() => setSelectedActivity("medium")}
           />
           <ActionButton
             text="5-7"
             icon={
               <MaterialCommunityIcons
                 name={
-                  selectedActivity === 3
+                  selectedActivity === "high"
                     ? "lightning-bolt"
                     : "lightning-bolt-outline"
                 }
@@ -106,13 +129,33 @@ export default function WelcomeScreen() {
                 color="white"
               />
             }
-            isSelected={selectedActivity === 3}
-            onPress={() => setSelectedActivity(3)}
+            isSelected={selectedActivity === "high"}
+            onPress={() => setSelectedActivity("high")}
           />
         </View>
-        <TouchableOpacity className={`justify-center items-center mt-10 p-3 ${selectedActivity != null && selectedGender != null ? "bg-indigo-700" : "bg-indigo-900"} rounded-full mx-5`} onPress={() => router.push("/(tabs)")}>
-          <Text className="dark:text-white text-2xl font-semibold">ZAGITUJ MI TO</Text>
-        </TouchableOpacity>
+        <View className="flex-1 justify-center">
+          <Link
+            href={{
+              pathname: "/(tabs)",
+              params: {
+                user: JSON.stringify(user),
+              },
+            }}
+            asChild
+          >
+            <TouchableOpacity
+              className={`p-3 ${
+                selectedActivity != null && selectedGender != null
+                  ? "bg-indigo-700"
+                  : "bg-indigo-900"
+              } rounded-full mx-5`}
+            >
+              <Text className="dark:text-white text-xl font-semibold text-center">
+                PRZEJDŹ DALEJ
+              </Text>
+            </TouchableOpacity>
+          </Link>
+        </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );
