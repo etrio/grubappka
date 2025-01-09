@@ -17,8 +17,8 @@ import {
 } from "react-native";
 
 export default function WelcomeScreen() {
-  const [selectedActivity, setSelectedActivity] = useState<string | null>(null);
-  const [selectedGender, setSelectedGender] = useState<string | null>(null);
+  const [selectedActivity, setSelectedActivity] = useState<string>();
+  const [selectedGender, setSelectedGender] = useState<string>();
   const [name, setName] = useState<string>();
   const [height, setHeight] = useState<string>();
   const [weight, setWeight] = useState<string>();
@@ -27,16 +27,21 @@ export default function WelcomeScreen() {
 
   const router = useRouter();
 
-  const user: User = {
-    weight: weight!,
-    name: name!,
-    age: age!,
-    height: height!,
-    gender: selectedGender!,
-    activity: selectedActivity!,
-  };
-
   const saveUser = async () => {
+    if (!weight || !name || !age || !height || !selectedGender || !selectedActivity) {
+      console.log('zle dane');
+      return null;
+    }
+
+    const user: User = {
+      weight: weight,
+      name: name,
+      age: age,
+      height: height,
+      gender: selectedGender,
+      activity: selectedActivity,
+    };
+
     await SecureStore.setItemAsync("user", JSON.stringify(user));
     console.log(user);
     router.navigate("/(tabs)/profile");
@@ -47,7 +52,7 @@ export default function WelcomeScreen() {
     <Modal animationType="slide" visible={isVisible}>
       <SafeAreaView className="flex-1 bg-[#0c0c0c]">
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-          <View>
+          <ScrollView>
             <Text className="text-center text-5xl mt-5 dark:text-white font-bold">
               Witaj grubasku
             </Text>
@@ -161,7 +166,7 @@ export default function WelcomeScreen() {
                 </Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </ScrollView>
         </TouchableWithoutFeedback>
       </SafeAreaView>
     </Modal>

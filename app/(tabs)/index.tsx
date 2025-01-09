@@ -13,7 +13,7 @@ export default function HomeScreen() {
 
   const getData = async () => {
     let result = await SecureStore.getItemAsync("user");
-    if (result) {
+    if (result != null) {
       setHasAccount(true);
       setUser(JSON.parse(result));
     } else {
