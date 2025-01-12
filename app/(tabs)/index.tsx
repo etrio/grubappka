@@ -32,9 +32,11 @@ export default function HomeScreen() {
   return (
     <SafeAreaView className="flex-1 bg-[#0c0c0c]">
       {!hasAccount ? (
-        <WelcomeScreen />
+        <WelcomeScreen visible={true} />
       ) : (
-        <Text className="dark:text-white text-4xl font-bold">Witaj, {user?.name}</Text>
+        <Text className="dark:text-white text-4xl font-bold">
+          Witaj, {user?.name}
+        </Text>
       )}
       <StatusBar />
     </SafeAreaView>

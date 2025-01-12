@@ -1,8 +1,8 @@
 import ActionButton from "@/components/ActionButton";
 import { User } from "@/types/User";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Link, router, useRouter } from "expo-router";
-import { useState } from "react";
+import { Link, router, useFocusEffect, useRouter } from "expo-router";
+import { useCallback, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import {
   Keyboard,
@@ -16,20 +16,37 @@ import {
   View,
 } from "react-native";
 
-export default function WelcomeScreen() {
+interface WelcomeScreenProps {
+  visible: boolean;
+}
+
+export default function WelcomeScreen({ visible }: WelcomeScreenProps) {
   const [selectedActivity, setSelectedActivity] = useState<string>();
   const [selectedGender, setSelectedGender] = useState<string>();
   const [name, setName] = useState<string>();
   const [height, setHeight] = useState<string>();
   const [weight, setWeight] = useState<string>();
   const [age, setAge] = useState<string>();
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState<boolean>();
 
   const router = useRouter();
 
+  useFocusEffect(
+    useCallback(() => {
+      setIsVisible(visible);
+    }, [])
+  );
+
   const saveUser = async () => {
-    if (!weight || !name || !age || !height || !selectedGender || !selectedActivity) {
-      console.log('zle dane');
+    if (
+      !weight ||
+      !name ||
+      !age ||
+      !height ||
+      !selectedGender ||
+      !selectedActivity
+    ) {
+      console.log("zle dane");
       return null;
     }
 
@@ -44,8 +61,8 @@ export default function WelcomeScreen() {
 
     await SecureStore.setItemAsync("user", JSON.stringify(user));
     console.log(user);
-    router.navigate("/(tabs)/profile");
     setIsVisible(false);
+    router.navigate("/(tabs)/profile");
   };
 
   return (
