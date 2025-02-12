@@ -104,13 +104,15 @@ export default function WelcomeScreen({ visible }: WelcomeScreenProps) {
             <Text className="dark:text-white text-center text-2xl font-semibold mt-5 text-wrap">
               Płeć
             </Text>
-            <View className="flex-row items-center justify-center mt-5 gap-x-10">
+            <View className="flex-row items-center justify-center mt-2 gap-x-10">
               <ActionButton
+                size={100}
                 text="M"
                 isSelected={selectedGender === "M"}
                 onPress={() => setSelectedGender("M")}
               />
               <ActionButton
+                size={100}
                 text="K"
                 isSelected={selectedGender === "K"}
                 onPress={() => setSelectedGender("K")}
@@ -121,6 +123,7 @@ export default function WelcomeScreen({ visible }: WelcomeScreenProps) {
             </Text>
             <View className="flex-row items-center justify-center gap-x-7 mt-5">
               <ActionButton
+                size={100}
                 text="0-2"
                 icon={
                   <MaterialCommunityIcons
@@ -137,6 +140,7 @@ export default function WelcomeScreen({ visible }: WelcomeScreenProps) {
                 onPress={() => setSelectedActivity("low")}
               />
               <ActionButton
+                size={100}
                 text="3-4"
                 icon={
                   <MaterialCommunityIcons
@@ -153,6 +157,7 @@ export default function WelcomeScreen({ visible }: WelcomeScreenProps) {
                 onPress={() => setSelectedActivity("medium")}
               />
               <ActionButton
+                size={100}
                 text="5-7"
                 icon={
                   <MaterialCommunityIcons
