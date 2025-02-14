@@ -16,6 +16,8 @@ export default function ActionButton({
     onPress,
     size,
 }: ActionButtonProps) {
+
+
     return (
         <TouchableOpacity onPress={onPress}>
             <View
@@ -26,7 +28,7 @@ export default function ActionButton({
                     style={{ width: size, height: size }}
                     className="justify-center items-center flex-row gap-x-2"
                 >
-                    <Text className="text-2xl dark:text-white">{text}</Text>
+                    <Text className="text-2xl text-white">{text}</Text>
                     {icon}
                 </View>
             </View>

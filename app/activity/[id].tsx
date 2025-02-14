@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   Image,
   Text,
@@ -6,23 +8,19 @@ import {
   ScrollView,
   useColorScheme,
 } from "react-native";
-
 import { Link, router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { activitiesData } from "@/data/activities";
 
 export default function Activity() {
-  const { id, name, color } = useLocalSearchParams<{
+  const { id, name, displayedName, color } = useLocalSearchParams<{
     id: string;
     name: string;
+    displayedName: string;
     color: string;
   }>();
   const theme = useColorScheme();
-
-  const blurhash =
-    "|rF?hV%2WCj[ayj[a|j[az_NaeWBj@ayfRayfQfQM{M|azj[azf6fQfQfQIpWXofj[ayj[j[fQayWCoeoeaya}j[ayfQa{oLj?j[WVj[ayayj[fQoff7azayj[ayj[j[ayofayayayj[fQj[ayayj[ayfjj[j[ayjuayj[";
-
   const activities = activitiesData;
 
   return (
@@ -36,35 +34,56 @@ export default function Activity() {
           />
         </TouchableOpacity>
         <Text className="dark:text-white font-bold text-3xl text-center">
-          {name}
+          {displayedName}
         </Text>
-        {/* only to center text */}
         <IconSymbol
           size={18}
           name="chevron.backward"
           color={theme === "dark" ? "black" : "white"}
         />
       </View>
-      <View>
+      <View className="mb-10">
         <ScrollView showsVerticalScrollIndicator={false}>
           {activities
-            .filter((activity) => activity.category === name.toLowerCase())
+            .filter((activity) => activity.category.toLowerCase() === name.toLowerCase())
             .map((activity) => (
               <View key={activity.id} className="mb-6">
                 <View className="flex-row justify-between items-center mb-2">
                   <Text className="dark:text-white text-2xl font-semibold">
                     {activity.name}
                   </Text>
-                  <Link href="/(modals)/infotab" asChild>
+                </View>
+                <Image source={activity.videoPath} className="w-full rounded-md" />
+                <View className="flex-row justify-between mt-2 items-center">
+                  <TouchableOpacity>
+                    <IconSymbol
+                      name="plus"
+                      size={24}
+                      color={theme === "dark" ? "gray" : "black"}
+                    />
+                  </TouchableOpacity>
+                  <Link
+                    href={{
+                      pathname: "/(modals)/infotab",
+                      params: {
+                        equipment: activity.equipment,
+                        muscles: activity.muscles,
+                        primaryMuscle: activity.primaryMuscle,
+                        secondaryMuscle: activity.secondaryMuscle,
+                        description: activity.description,
+                      },
+                    }}
+                    asChild
+                  >
                     <TouchableOpacity>
-                      <IconSymbol name="info.circle" size={28} color="gray" />
+                      <IconSymbol
+                        name="info.circle"
+                        size={24}
+                        color={theme === "dark" ? "gray" : "black"}
+                      />
                     </TouchableOpacity>
                   </Link>
                 </View>
-                <Image
-                  source={activity.videoPath}
-                  className="w-full rounded-md"
-                />
               </View>
             ))}
         </ScrollView>

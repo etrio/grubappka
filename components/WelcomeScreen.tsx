@@ -13,6 +13,7 @@ import {
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  useColorScheme,
   View,
 } from "react-native";
 
@@ -30,6 +31,8 @@ export default function WelcomeScreen({ visible }: WelcomeScreenProps) {
   const [isVisible, setIsVisible] = useState<boolean>();
 
   const router = useRouter();
+
+  const theme = useColorScheme();
 
   useFocusEffect(
     useCallback(() => {
@@ -62,12 +65,12 @@ export default function WelcomeScreen({ visible }: WelcomeScreenProps) {
     await SecureStore.setItemAsync("user", JSON.stringify(user));
     console.log(user);
     setIsVisible(false);
-    router.navigate("/(tabs)/profile");
+    router.navigate("/(tabs)");
   };
 
   return (
     <Modal animationType="slide" visible={isVisible}>
-      <SafeAreaView className="flex-1 bg-[#0c0c0c]">
+      <SafeAreaView className="flex-1 dark:bg-[#0c0c0c]">
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           <ScrollView>
             <Text className="text-center text-5xl mt-5 dark:text-white font-bold">
@@ -80,25 +83,29 @@ export default function WelcomeScreen({ visible }: WelcomeScreenProps) {
               <TextInput
                 placeholder="Imie"
                 onChangeText={(text) => setName(text)}
-                className="border-2 mx-5 p-3 border-indigo-900 rounded-md dark:text-white"
+                placeholderTextColor="gray"
+                className="border-2 mx-5 p-3 border-indigo-900 rounded-md font-semibold dark:text-white"
               />
               <TextInput
                 placeholder="Wiek"
                 inputMode="numeric"
+                placeholderTextColor="gray"
                 onChangeText={(text) => setAge(text)}
-                className="border-2 mx-5 p-3 border-indigo-900 rounded-md dark:text-white"
+                className="border-2 mx-5 p-3 border-indigo-900 rounded-md font-semibold dark:text-white"
               />
               <TextInput
                 placeholder="Wzrost"
                 inputMode="numeric"
+                placeholderTextColor="gray"
                 onChangeText={(text) => setHeight(text)}
-                className="border-2 mx-5 p-3 border-indigo-900 rounded-md dark:text-white"
+                className="border-2 mx-5 p-3 border-indigo-900 rounded-md font-semibold dark:text-white"
               />
               <TextInput
                 placeholder="Waga"
                 inputMode="numeric"
                 onChangeText={(text) => setWeight(text)}
-                className="border-2 mx-5 p-3 border-indigo-900 rounded-md dark:text-white"
+                placeholderTextColor="gray"
+                className="border-2 mx-5 p-3 border-indigo-900 rounded-md font-semibold dark:text-white"
               />
             </View>
             <Text className="dark:text-white text-center text-2xl font-semibold mt-5 text-wrap">
@@ -174,16 +181,16 @@ export default function WelcomeScreen({ visible }: WelcomeScreenProps) {
                 onPress={() => setSelectedActivity("high")}
               />
             </View>
-            <View className="justify-center mt-8">
+            <View className="justify-center my-8">
               <TouchableOpacity
                 className={`p-3 ${
                   selectedActivity != null && selectedGender != null
                     ? "bg-indigo-700"
                     : "bg-indigo-900"
-                } rounded-full mx-5`}
+                } rounded-2xl mx-5`}
                 onPress={() => saveUser()}
               >
-                <Text className="dark:text-white text-xl font-semibold text-center">
+                <Text className="text-white text-xl font-semibold text-center">
                   PRZEJDŹ DALEJ
                 </Text>
               </TouchableOpacity>
