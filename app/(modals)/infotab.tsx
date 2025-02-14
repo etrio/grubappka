@@ -1,6 +1,6 @@
 import { useLocalSearchParams } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { Platform, Text, View } from "react-native";
 
 export default function InfoTab() {
   const { description, equipment, muscles, primaryMuscle, secondaryMuscle } =

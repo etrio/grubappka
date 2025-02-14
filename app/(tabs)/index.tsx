@@ -5,7 +5,7 @@ import {
   useColorScheme,
 } from "react-native";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import WelcomeScreen from "@/components/WelcomeScreen";
 import { Link, router, useFocusEffect } from "expo-router";
@@ -14,7 +14,6 @@ import { User } from "@/types/User";
 import { View } from "react-native";
 import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 
 export default function HomeScreen() {
@@ -41,8 +40,6 @@ export default function HomeScreen() {
       });
     }, [])
   );
-
-  const theme = useColorScheme();
 
   return (
     <SafeAreaView edges={["top"]} className="flex-1 dark:bg-[#1b1b1b] bg-[#f8f4f4]">

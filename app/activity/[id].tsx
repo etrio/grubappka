@@ -1,5 +1,3 @@
-import { useState, useEffect } from "react";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
   Image,
   Text,
@@ -14,12 +12,11 @@ import { IconSymbol } from "@/components/ui/IconSymbol";
 import { activitiesData } from "@/data/activities";
 
 export default function Activity() {
-  const { id, name, displayedName, color } = useLocalSearchParams<{
-    id: string;
+  const { name, displayedName } = useLocalSearchParams<{
     name: string;
     displayedName: string;
-    color: string;
   }>();
+  
   const theme = useColorScheme();
   const activities = activitiesData;
 

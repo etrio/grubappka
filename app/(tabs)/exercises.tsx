@@ -1,21 +1,14 @@
 import {
   Text,
-  TouchableOpacity,
   View,
-  TextInput,
   useColorScheme,
   ScrollView,
-  FlatList,
 } from "react-native";
 
-import * as SecureStore from "expo-secure-store";
-import { act, useCallback } from "react";
-import { useFocusEffect } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Activity } from "@/components/Activity";
 
 export default function TabTwoScreen() {
-  const theme = useColorScheme();
 
   const activities = [
     {

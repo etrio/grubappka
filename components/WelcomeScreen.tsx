@@ -1,7 +1,7 @@
 import ActionButton from "@/components/ActionButton";
 import { User } from "@/types/User";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Link, router, useFocusEffect, useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import {
@@ -13,7 +13,6 @@ import {
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  useColorScheme,
   View,
 } from "react-native";
 
@@ -31,8 +30,6 @@ export default function WelcomeScreen({ visible }: WelcomeScreenProps) {
   const [isVisible, setIsVisible] = useState<boolean>();
 
   const router = useRouter();
-
-  const theme = useColorScheme();
 
   useFocusEffect(
     useCallback(() => {

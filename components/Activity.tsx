@@ -10,7 +10,7 @@ type ActivityType = {
 
 export function Activity({ id, name, displayedName, color }: ActivityType) {
   return (
-    <Link href={{ pathname: "/activity/[id]", params: {id: id, name: name, displayedName: displayedName, color: color}}} asChild >
+    <Link href={{ pathname: "/activity/[id]", params: {id: id, name: name, displayedName: displayedName}}} asChild >
       <TouchableOpacity className={`rounded-2xl w-full py-24 my-4 ${color}`}>
         <Text className="text-white text-4xl text-center font-bold">
           {displayedName}

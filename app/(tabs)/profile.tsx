@@ -12,8 +12,6 @@ import { useCallback, useState } from "react";
 import { User } from "@/types/User";
 import { router, useFocusEffect } from "expo-router";
 import { Feather } from "@expo/vector-icons";
-import ActionButton from "@/components/ActionButton";
-import { colorScheme } from "nativewind";
 import Slider from "@react-native-community/slider";
 
 export default function TabThreeScreen() {
