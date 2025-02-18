@@ -12,9 +12,10 @@ import { Link, router, useFocusEffect } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { User } from "@/types/User";
 import { View } from "react-native";
-import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Entypo, FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { IconSymbol } from "@/components/ui/IconSymbol";
+import { Image } from 'react-native';
 
 export default function HomeScreen() {
   const [hasAccount, setHasAccount] = useState(false);
@@ -64,54 +65,73 @@ export default function HomeScreen() {
                 Rozpoczęte programy treningowe
               </Text>
               <View className="flex mx-5">
-                <View className="dark:bg-slate-900 bg-slate-700 h-min w-full rounded-xl border-solid border-black dark:border-gray-800 border gap-y-6 p-3">
-                  <TouchableOpacity
-                    onPress={() => router.navigate("/(tabs)/exercises")}
-                  >
-                    <View className="rounded-xl bg-gray-800 p-4 justify-between flex-row items-center">
-                      <Text className="text-white text-md font-medium">
-                        Klatka
-                      </Text>
-                      <IconSymbol
-                        name="arrow.forward.circle"
-                        size={22}
-                        color="white"
-                      />
-                    </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => router.navigate("/(tabs)/exercises")}
-                  >
-                    <View className="rounded-xl  bg-gray-800 p-4 justify-between flex-row items-center">
-                      <Text className="text-white text-md font-medium">
-                        Plecy
-                      </Text>
-                      <IconSymbol
-                        name="arrow.forward.circle"
-                        size={22}
-                        color="white"
-                      />
-                    </View>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => router.navigate("/(tabs)/exercises")}
-                  >
-                    <View className="rounded-xl bg-gray-800 p-4 justify-between flex-row items-center">
-                      <Text className="text-white text-md font-medium">
-                        Nogi
-                      </Text>
-                      <IconSymbol
-                        name="arrow.forward.circle"
-                        size={22}
-                        color="white"
-                      />
-                    </View>
-                  </TouchableOpacity>
-                </View>
+             
+                <View className="flex-row dark:bg-slate-900 bg-slate-700 h-min w-full rounded-xl border-solid border-black dark:border-gray-800 border gap-x-3 p-3"> 
+                <TouchableOpacity
+                  onPress={() => router.navigate("/(tabs)/exercises")}
+                >
+                  <View className="w-24 h-24 rounded-xl bg-gray-800 p-4 justify-between items-center">
+                  
+                  <Image 
+                      source={require('../../assets/images/klatka.webp')} 
+                      style={{ width: 40, height: 40 }} 
+                    />
+                    
+                    <Text className="text-white text-md font-medium text-center">
+                      Klatka
+                    </Text>
+                    <IconSymbol
+                      name="arrow.forward.circle"
+                      size={22}
+                      color="white"
+                    />
+                  </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => router.navigate("/(tabs)/exercises")}
+                >
+                  <View className="w-24 h-24 ml-3 rounded-xl bg-gray-800 p-4 justify-between  items-center">
+                  <Image 
+                      source={require('../../assets/images/plecy.png')} 
+                      style={{ width: 40, height: 40 }} 
+                    />
+                    <Text className="text-white text-md font-medium text-center">
+                      Plecy
+                    </Text>
+                    <IconSymbol
+                      name="arrow.forward.circle"
+                      size={22}
+                      color="white"
+                    />
+                  </View>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  onPress={() => router.navigate("/(tabs)/exercises")}
+                >
+                  <View className="w-24 h-24 ml-3 rounded-xl bg-gray-800 p-4 justify-between  items-center">
+                  <Image 
+                      source={require('../../assets/images/nogi.png')} 
+                      style={{ width: 40, height: 40 }} 
+                    />
+                    <Text className="text-white text-md font-medium text-center">
+                      Nogi
+                    </Text>
+                    <IconSymbol
+                      name="arrow.forward.circle"
+                      size={22}
+                      color="white"
+                    />
+                  </View>
+                </TouchableOpacity>
+              </View>
+
               </View>
             </View>
 
             <View className="items-center mx-8 my-2">
+            <FontAwesome5 name="running" size={140} color="white" />
               <Link href={"/(tabs)/exercises"} asChild>
                 <TouchableOpacity className="dark:bg-slate-900 bg-slate-700 w-full py-3 my-6 rounded-3xl">
                   <Text className="text-center font-semibold text-gray-200">
