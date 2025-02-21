@@ -27,6 +27,7 @@ export default function HomeScreen() {
   const [activeExercises, setActiveExercises] = useState<Activity[]>();
   const [categories, setCategories] = useState<Category[]>();
   const [totalWorkouts, SetTotalWorkout] = useState<number>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // count total active ex.
   useEffect(() => {
@@ -40,31 +41,52 @@ export default function HomeScreen() {
   }, [activeExercises]);
 
   const getData = async () => {
-    const user = await loadUser();
-    const data = await getActiveExercises();
-    const categoriesData = await getCategories();
+    setIsLoading(true);
+    try {
 
-    if (data) {
-      setActiveExercises(data);
-    }
+      const user = await loadUser();
+      const data = await getActiveExercises();
+      const categoriesData = await getCategories();
 
-    if (categoriesData) {
-      setCategories(categoriesData);
-    }
+      if (data) {
+        setActiveExercises(data);
+      }
 
-    if (user != null) {
-      setHasAccount(true);
-      setUser(user);
-    } else {
-      setHasAccount(false);
+      if (categoriesData) {
+        setCategories(categoriesData);
+      }
+
+      if (user != null) {
+        setHasAccount(true);
+        setUser(user);
+      } else {
+        setHasAccount(false);
+      }
+    } catch (err) {
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useFocusEffect(
     useCallback(() => {
       getData();
+      console.log('index screen');
     }, [])
   );
+
+  if (isLoading) {
+    return (
+      <SafeAreaView
+        edges={["top"]}
+        className="flex-1 dark:bg-[#000000] bg-[#ffffff]"
+      >
+        <View className="h-full w-full justify-center items-center">
+          <Text className="dark:text-white text-3xl">Loading...</Text>
+        </View>
+      </SafeAreaView>
+    )
+  }
 
   return (
     <SafeAreaView
