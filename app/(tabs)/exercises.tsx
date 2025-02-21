@@ -1,53 +1,44 @@
-import {
-  Text,
-  View,
-  useColorScheme,
-  ScrollView,
-} from "react-native";
+import { Text, View, useColorScheme, ScrollView } from "react-native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Activity } from "@/components/Activity";
+import { getCategories } from "@/lib/exercise";
+import { useEffect, useState } from "react";
+import { Category } from "@/types/Category";
 
 export default function TabTwoScreen() {
+  const [categories, setCategories] = useState<Category[]>();
 
-  const activities = [
-    {
-      id: "1",
-      name: "chest",
-      displayedName: "Klatka",
-      color: "bg-orange-500",
-    },
-    {
-      id: "2",
-      name: "back",
-      displayedName: "Plecy",
-      color: "bg-blue-500",
-    },
-    {
-      id: "3",
-      name: "arms",
-      displayedName: "Ramiona",
-      color: "bg-yellow-500",
-    },
-    {
-      id: "4",
-      name: "legs",
-      displayedName: "Nogi",
-      color: "bg-purple-500",
-    },
-  ];
+  const getData = async () => {
+    const data = await getCategories();
+    setCategories(data);
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
-    <SafeAreaView edges={["top"]} className="flex-1 dark:bg-[#1b1b1b] bg-[#f8f4f4]">
-      <View className="flex-1 dark:bg-[#0c0c0c] h-full">
-        <View className="dark:bg-[#1b1b1b] bg-[#f8f4f4] dark:border-b-0 border-b-2 border-b-[#ebe7e7]">
+    <SafeAreaView
+      edges={["top"]}
+      className="flex-1 dark:bg-[#000000] bg-[#ffffff]"
+    >
+      <View className="flex-1 dark:bg-[#000000] h-full">
+        <View className="dark:bg-[#000000]">
           <Text className="text-center text-4xl font-semibold dark:text-white my-3">
-            Ćwiczenia
+            Exercises
           </Text>
         </View>
-        <ScrollView className="mx-5 flex-1 h-full mb-24" showsVerticalScrollIndicator={false}>
-          {activities.map((activity) => (
-            <Activity id={activity.id} name={activity.name} displayedName={activity.displayedName} color={activity.color} key={activity.name} />
+        <ScrollView
+          className="mx-5 flex-1 h-full"
+          showsVerticalScrollIndicator={false}
+        >
+          {categories?.map((category) => (
+            <Activity
+              id={category.name}
+              name={category.name}
+              key={category.name}
+            />
           ))}
         </ScrollView>
       </View>

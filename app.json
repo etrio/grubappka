@@ -12,7 +12,8 @@
       "supportsTablet": true,
       "config": {
         "usesNonExemptEncryption": false
-      }
+      },
+      "bundleIdentifier": "com.etrio.grubappka"
     },
     "android": {
       "adaptiveIcon": {
@@ -47,6 +48,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "cb8373a8-496d-464a-98f7-a800752861c8"
+      }
     }
   }
 }

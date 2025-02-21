@@ -62,7 +62,7 @@ export const activitiesData = [
     description: "Podciaganie na drążku nachwytem",
     equipment: "Masa ciała",
     muscles: "Plecy",
-    primaryMuscle: " Najszersze grzbietu",
+    primaryMuscle: "Najszersze grzbietu",
     secondaryMuscle: "Górna część pleców, Biceps",
   },
   {

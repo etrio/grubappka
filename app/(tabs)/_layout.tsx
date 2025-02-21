@@ -17,14 +17,11 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
         headerShown: false,
         tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: "absolute",
-          },
-          default: {},
-        }),
+        // tabBarBackground: TabBarBackground,
+        tabBarStyle: {
+          backgroundColor: colorScheme === "dark" ? "#000000" : "#FFFFFF",
+          borderColor: colorScheme === "dark" ? "#000000" : "#FFFFFF",
+        }
       }}
     >
       <Tabs.Screen
@@ -39,16 +36,16 @@ export default function TabLayout() {
       <Tabs.Screen
         name="exercises"
         options={{
-          title: "Ćwiczenia",
+          title: "Exercises",
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="figure.run" color={color} />
+            <IconSymbol size={28} name="figure.walk.motion" color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
-          title: "Profil",
+          title: "Profile",
           tabBarIcon: ({ color }) => (
             <IconSymbol size={28} name="person.fill" color={color} />
           ),

@@ -1,19 +1,26 @@
 import { Link, router } from "expo-router";
+import { useEffect } from "react";
 import { Text, TouchableOpacity } from "react-native";
 
 type ActivityType = {
   id: string;
   name: string;
-  displayedName: string;
-  color: string;
 };
 
-export function Activity({ id, name, displayedName, color }: ActivityType) {
+export function Activity({ id, name }: ActivityType) {
+  useEffect(() => {
+    console.log("id", id, "name", name);
+  }, []);
   return (
-    <Link href={{ pathname: "/activity/[id]", params: {id: id, name: name, displayedName: displayedName}}} asChild >
-      <TouchableOpacity className={`rounded-2xl w-full py-24 my-4 ${color}`}>
+    <Link
+      href={{ pathname: "/activity/[id]", params: { id: id, name: name } }}
+      asChild
+    >
+      <TouchableOpacity
+        className={`rounded-2xl w-full py-24 my-4 bg-[#e1275f]`}
+      >
         <Text className="text-white text-4xl text-center font-bold">
-          {displayedName}
+          {name}
         </Text>
       </TouchableOpacity>
     </Link>
